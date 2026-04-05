@@ -1,0 +1,86 @@
+name: Release
+on:
+  workflow_run:
+    workflows: ["Code quality"]
+    types:
+      - completed
+    branches:
+      - main
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v5
+        with:
+          version: 9
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Determine Next Version
+        id: version
+        run: |
+          BUMP=$(pnpm exec conventional-recommended-bump --preset conventionalcommits)
+          echo "Recommended bump: $BUMP"
+
+          if [ -z "$BUMP" ]; then
+            echo "No release needed."
+            echo "new_release_published=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          npm version $BUMP --no-git-tag-version
+          NEW_VERSION=$(node -p "require('./package.json').version")
+          echo "New version: $NEW_VERSION"
+
+          echo "new_release_published=true" >> $GITHUB_OUTPUT
+          echo "new_release_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+      - name: Setup Go
+        if: steps.version.outputs.new_release_published == 'true'
+        uses: actions/setup-go@v6
+        with:
+          go-version: '1.25'
+      - name: Build and Sign Extension
+        if: steps.version.outputs.new_release_published == 'true'
+        env:
+          DOTENV_PRIVATE_KEY: ${{ secrets.DOTENV_PRIVATE_KEY }}
+          VERSION: ${{ steps.version.outputs.new_release_version }}
+        run: |
+          pnpm run build
+          pnpm exec dotenvx run --env-file=.env -- pnpm exec web-ext sign --source-dir .output/firefox-mv3 --channel unlisted
+          mkdir -p release-artifacts
+          mv web-ext-artifacts/*.xpi release-artifacts/tokyotech-portal-autofill-${VERSION}.xpi
+          go run scripts/generate_update_json.go -version "${VERSION}" -url "https://github.com/${{ github.repository }}/releases/download/v${VERSION}/tokyotech-portal-autofill-${VERSION}.xpi" -output updates.json
+          cp updates.json release-artifacts/tokyotech-portal-autofill-updates.json
+      - name: Commit and Push package.json
+        if: steps.version.outputs.new_release_published == 'true'
+        env:
+          VERSION: ${{ steps.version.outputs.new_release_version }}
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add package.json
+          git commit -m "chore(release): ${VERSION} [skip ci]"
+          git push
+      - name: Create Release and Upload Artifacts
+        if: steps.version.outputs.new_release_published == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.version.outputs.new_release_version }}
+        run: |
+          gh release create v${VERSION} --title "v${VERSION}" --generate-notes
+          gh release upload v${VERSION} release-artifacts/*

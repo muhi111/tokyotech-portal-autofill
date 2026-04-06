@@ -13,10 +13,10 @@ export default defineConfig({
 				data_collection_permissions: {
 					required: ["none"],
 				},
-				strict_min_version: "109.0",
+				strict_min_version: "140.0",
 			},
 			gecko_android: {
-				strict_min_version: "121.0",
+				strict_min_version: "142.0",
 			},
 		},
 	},

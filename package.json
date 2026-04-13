@@ -6,9 +6,9 @@
 	"type": "module",
 	"scripts": {
 		"dev": "wxt",
-		"build": "wxt build",
-		"zip": "wxt zip",
-		"check": "biome check --write ."
+		"build": "tsc --noEmit && wxt build",
+		"zip": "tsc --noEmit && wxt zip",
+		"check": "tsc --noEmit && biome check --write ."
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.4.10",

@@ -5,9 +5,9 @@
 	"version": "2.0.0",
 	"type": "module",
 	"scripts": {
-		"dev": "wxt -b firefox --mv3",
-		"build": "wxt build -b firefox --mv3",
-		"zip": "wxt zip -b firefox --mv3",
+		"dev": "wxt",
+		"build": "wxt build",
+		"zip": "wxt zip",
 		"check": "biome check --write --vcs-enabled=true --vcs-client-kind=git --vcs-use-ignore-file=true ."
 	},
 	"devDependencies": {

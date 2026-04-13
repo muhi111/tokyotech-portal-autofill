@@ -2,6 +2,8 @@ import { defineConfig } from "wxt";
 
 // See https://wxt.dev/api/config.html
 export default defineConfig({
+	browser: "firefox",
+	manifestVersion: 3,
 	manifest: {
 		permissions: ["storage"],
 		browser_specific_settings: {

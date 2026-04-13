@@ -8,7 +8,7 @@
 		"dev": "wxt",
 		"build": "wxt build",
 		"zip": "wxt zip",
-		"check": "biome check --write --vcs-enabled=true --vcs-client-kind=git --vcs-use-ignore-file=true ."
+		"check": "biome check --write ."
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.4.10",

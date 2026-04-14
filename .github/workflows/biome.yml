@@ -7,5 +7,9 @@ jobs:
     permissions:
       contents: read
     steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - name: Run code quality
         uses: ./.github/actions/code-quality

@@ -6,9 +6,9 @@
 	"type": "module",
 	"scripts": {
 		"dev": "wxt",
-		"build": "tsc --noEmit && wxt build",
-		"zip": "tsc --noEmit && wxt zip",
-		"check": "tsc --noEmit && biome check --write ."
+		"build": "wxt prepare && tsc --noEmit && wxt build",
+		"zip": "wxt prepare && tsc --noEmit && wxt zip",
+		"check": "wxt prepare && tsc --noEmit && biome check --write ."
 	},
 	"engines": {
 		"node": ">=20.12.0"

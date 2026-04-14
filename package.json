@@ -17,6 +17,6 @@
 		"conventional-recommended-bump": "^11.2.0",
 		"typescript": "^5.9.3",
 		"web-ext": "^10.1.0",
-		"wxt": "^0.20.20"
+		"wxt": "^0.20.22"
 	}
 }

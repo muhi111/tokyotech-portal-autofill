@@ -5,20 +5,21 @@
 	"version": "2.0.0",
 	"type": "module",
 	"scripts": {
-		"dev": "wxt -b firefox --mv3",
-		"build": "wxt build -b firefox --mv3",
-		"zip": "wxt zip -b firefox --mv3",
-		"check": "biome check --write --vcs-enabled=true --vcs-client-kind=git --vcs-use-ignore-file=true ."
+		"dev": "wxt",
+		"build": "wxt prepare && tsc --noEmit && wxt build",
+		"zip": "wxt prepare && tsc --noEmit && wxt zip",
+		"check": "wxt prepare && tsc --noEmit && biome check --write ."
+	},
+	"engines": {
+		"node": ">=20.12.0"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.4.10",
+		"@biomejs/biome": "2.4.11",
+		"@dotenvx/dotenvx": "^1.61.0",
 		"conventional-changelog-conventionalcommits": "^9.3.1",
 		"conventional-recommended-bump": "^11.2.0",
 		"typescript": "^5.9.3",
 		"web-ext": "^10.1.0",
-		"wxt": "^0.20.20"
-	},
-	"dependencies": {
-		"@dotenvx/dotenvx": "^1.59.1"
+		"wxt": "^0.20.22"
 	}
 }

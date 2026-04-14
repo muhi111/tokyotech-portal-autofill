@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta http-equiv="content-type" content="text/html;charset=utf-8">
-  <title>Options</title>
-</head>
-<body>
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=utf-8">
+		<title>Options</title>
+	</head>
+	<body>
+		<h2>マトリックスコード設定</h2>
+		<p>入力順序: A1, A2, A3, ... J5, J6, J7</p>
+		<p>合計70個の値を配列形式で入力してください。</p>
+		<p>各値はダブルクォーテーション(")で囲み、カンマ(,)で区切ってください。</p>
+		<p>例: ["値1", "値2", "値3", ..., "値70"]</p>
 
-<h2>マトリックスコード設定</h2>
-<p>入力順序: A1, A2, A3, ... J5, J6, J7</p>
-<p>合計70個の値を配列形式で入力してください。</p>
-<p>各値はダブルクォーテーション(")で囲み、カンマ(,)で区切ってください。</p>
-<p>例: ["値1", "値2", "値3", ..., "値70"]</p>
+		<label for="matrix">マトリックスコード:</label><br>
+		<textarea
+			id="matrix"
+			rows="7"
+			style="width: 100%; box-sizing: border-box;"
+		></textarea>
 
-<label for="matrix">マトリックスコード:</label><br>
-<textarea id="matrix" rows="7" style="width: 100%; box-sizing: border-box;"></textarea>
+		<br><br>
+		<button id="save_button" type="button">保存</button>
 
-<br><br>
-<button id="save_button" type="button">保存</button>
-
-<script type="module" src="./options.ts"></script>
-
-</body>
+		<script type="module" src="./options.ts"></script>
+	</body>
 </html>

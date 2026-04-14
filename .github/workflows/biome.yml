@@ -30,4 +30,3 @@ jobs:
         run: pnpm run build
       - name: Lint extension package
         run: pnpm exec web-ext lint --warnings-as-errors --source-dir .output/firefox-mv3
-

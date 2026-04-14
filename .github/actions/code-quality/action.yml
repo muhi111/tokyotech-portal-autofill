@@ -1,0 +1,13 @@
+name: Code quality
+description: Run Biome checks
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Biome
+      uses: biomejs/setup-biome@v2
+      with:
+        version: 2.4.11
+    - name: Run Biome
+      shell: bash
+      run: biome ci .

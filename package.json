@@ -10,6 +10,9 @@
 		"zip": "tsc --noEmit && wxt zip",
 		"check": "tsc --noEmit && biome check --write ."
 	},
+	"engines": {
+		"node": ">=20.12.0"
+	},
 	"devDependencies": {
 		"@biomejs/biome": "2.4.11",
 		"@dotenvx/dotenvx": "^1.61.0",

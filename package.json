@@ -11,7 +11,7 @@
 		"check": "tsc --noEmit && biome check --write ."
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.4.10",
+		"@biomejs/biome": "2.4.11",
 		"@dotenvx/dotenvx": "^1.61.0",
 		"conventional-changelog-conventionalcommits": "^9.3.1",
 		"conventional-recommended-bump": "^11.2.0",

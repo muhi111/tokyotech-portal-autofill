@@ -29,4 +29,4 @@ jobs:
       - name: Build extension
         run: pnpm run build
       - name: Lint extension package
-        run: pnpm exec web-ext lint --warnings-as-errors --source-dir .output/firefox-mv3
+        run: pnpm exec web-ext lint --warnings-as-errors --self-hosted --source-dir .output/firefox-mv3

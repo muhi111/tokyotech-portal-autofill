@@ -1,0 +1,6 @@
+packages:
+  - '.'
+
+allowBuilds:
+  esbuild: false
+  spawn-sync: false

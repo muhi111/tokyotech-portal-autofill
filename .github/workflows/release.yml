@@ -37,7 +37,7 @@ jobs:
       - name: Determine Next Version
         id: version
         run: |
-          BUMP=$(pnpm exec conventional-recommended-bump --preset conventionalcommits)
+          BUMP=$(pnpm --silent exec conventional-recommended-bump --preset conventionalcommits)
           echo "Recommended bump: $BUMP"
 
           if [ -z "$BUMP" ]; then

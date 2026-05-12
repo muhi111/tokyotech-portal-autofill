@@ -37,7 +37,7 @@ jobs:
       - name: Determine Next Version
         id: version
         run: |
-          BUMP=$(pnpm --silent exec conventional-recommended-bump --preset conventionalcommits)
+          BUMP=$(pnpm exec conventional-recommended-bump --preset conventionalcommits)
           echo "Recommended bump: $BUMP"
 
           if [ -z "$BUMP" ]; then
@@ -70,7 +70,7 @@ jobs:
       - name: Bump Version
         id: version
         run: |
-          npm version "$BUMP" --no-git-tag-version
+          pnpm version "$BUMP" --no-git-tag-version
           NEW_VERSION=$(node -p "require('./package.json').version")
           echo "New version: $NEW_VERSION"
           echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
